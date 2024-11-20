@@ -14,7 +14,6 @@ public class HelloWorldOperation implements HelloWorld {
     @Override
     public HelloWorldResult process(HelloWorldInput input) {
 
-        Book sdfsd = Book.builder().author("sdfsd").build();
         return HelloWorldResult
                 .builder()
                 .message("Hello from processor")

@@ -1,5 +1,6 @@
 package com.tinqin.library.book.persistence.models;
 
+import com.tinqin.library.book.persistence.enums.BookStatus;
 import jakarta.persistence.*;
 import jdk.jfr.Enabled;
 import lombok.*;
@@ -30,5 +31,5 @@ public class Book {
 
     @Column(name = "book_status", nullable = false)
     @Enumerated(EnumType.STRING)
-    private String bookStatus;
+    private BookStatus bookStatus;
 }
