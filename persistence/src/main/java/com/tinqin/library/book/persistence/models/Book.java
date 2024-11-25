@@ -1,22 +1,34 @@
 package com.tinqin.library.book.persistence.models;
 
-import com.tinqin.library.book.persistence.enums.BookStatus;
 import jakarta.persistence.*;
-import jdk.jfr.Enabled;
 import lombok.*;
-import org.springframework.stereotype.Service;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 
 @AllArgsConstructor
-@NoArgsConstructor
-@Builder
-@ToString
 @Getter
+@NoArgsConstructor
+@ToString
 @Entity
 @Table(name = "books")
 public class Book {
+
+    @Builder
+    public Book(String title, List<Author> author, String pages, BigDecimal price) {
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.price = price;
+
+        this.stock = 0;
+        this.isDeleted = false;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -26,10 +38,32 @@ public class Book {
     @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(name = "author", nullable = false)
-    private String author;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "books_authors",
+            joinColumns = @JoinColumn(name = "book_id"),
+            inverseJoinColumns = @JoinColumn(name = "author_id")
+    )
+    private List<Author> author;
 
-    @Column(name = "book_status", nullable = false)
-    @Enumerated(EnumType.STRING)
-    private BookStatus bookStatus;
+    @Column(name = "pages", nullable = false)
+    private String pages;
+
+    @Column(name = "price", nullable = false)
+    private BigDecimal price;
+
+    @Column(name = "stock", nullable = false)
+    private Integer stock;
+
+    @CreationTimestamp
+    @Column(name = "createdAd", nullable = false)
+    private LocalDateTime createdAd;
+
+    @UpdateTimestamp
+    @Column(name = "updatedOn", nullable = false)
+    private LocalDateTime updatedOn;
+
+    @Column(name = "isDeleted")
+    private Boolean isDeleted;
+
 }

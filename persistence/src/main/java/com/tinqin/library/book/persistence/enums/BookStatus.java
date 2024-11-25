@@ -3,8 +3,8 @@ package com.tinqin.library.book.persistence.enums;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-@Getter
 @AllArgsConstructor
+@Getter
 public enum BookStatus {
 
     PUBLISHED("Published"),
