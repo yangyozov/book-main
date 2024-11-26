@@ -1,4 +1,4 @@
-package com.tinqin.library.book.core.processors.create.createauthor;
+package com.tinqin.library.book.core.processors.create;
 
 import com.tinqin.library.book.api.operations.create.createauthor.CreateAuthor;
 import com.tinqin.library.book.api.operations.create.createauthor.CreateAuthorInput;

@@ -4,12 +4,18 @@ import com.tinqin.library.book.api.operations.APIRotes;
 import com.tinqin.library.book.api.operations.create.createbook.CreateBook;
 import com.tinqin.library.book.api.operations.create.createbook.CreateBookInput;
 import com.tinqin.library.book.api.operations.create.createbook.CreateBookOutput;
+import com.tinqin.library.book.api.operations.delete.deletebook.DeleteBook;
+import com.tinqin.library.book.api.operations.delete.deletebook.DeleteBookInput;
+import com.tinqin.library.book.api.operations.delete.deletebook.DeleteBookOutput;
 import com.tinqin.library.book.api.operations.get.getbooks.getallbooks.GetAllBooks;
 import com.tinqin.library.book.api.operations.get.getbooks.getallbooks.GetAllBooksInput;
 import com.tinqin.library.book.api.operations.get.getbooks.getallbooks.GetAllBooksOutput;
 import com.tinqin.library.book.api.operations.get.getbooks.getbook.GetBook;
 import com.tinqin.library.book.api.operations.get.getbooks.getbook.GetBookInput;
 import com.tinqin.library.book.api.operations.get.getbooks.getbook.GetBookOutput;
+import com.tinqin.library.book.api.operations.put.updatebook.hidebook.HideBook;
+import com.tinqin.library.book.api.operations.put.updatebook.hidebook.HideBookInput;
+import com.tinqin.library.book.api.operations.put.updatebook.hidebook.HideBookOutput;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +28,8 @@ public class BookController {
     private final GetBook getBook;
     private final GetAllBooks getAllBooks;
     private final CreateBook createBook;
+    private final DeleteBook deleteBook;
+    private final HideBook hideBook;
 
     @GetMapping(APIRotes.GET_BOOK)
     public ResponseEntity<?> getBook(@PathVariable("bookId") String bookId) {
@@ -30,12 +38,9 @@ public class BookController {
                 builder().
                 bookId(bookId).
                 build();
-        try {
-            GetBookOutput result = getBook.process(input);
-            return new ResponseEntity<>(result, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
-        }
+
+        GetBookOutput result = getBook.process(input);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @GetMapping(APIRotes.API_BOOK)
@@ -55,5 +60,31 @@ public class BookController {
         CreateBookOutput result = createBook.process(input);
 
         return new ResponseEntity<>(result, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping(APIRotes.DELETE_BOOK)
+    public ResponseEntity<?> deleteBook(@PathVariable("bookId") String bookId) {
+
+        DeleteBookInput input = DeleteBookInput
+                .builder()
+                .bookId(bookId)
+                .build();
+
+        DeleteBookOutput result = deleteBook.process(input);
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @PutMapping(APIRotes.GET_BOOK)
+    public ResponseEntity<?> hideBook(@PathVariable("bookId") String bookId) {
+
+        HideBookInput input = HideBookInput
+                .builder()
+                .bookId(bookId)
+                .build();
+
+        HideBookOutput result = hideBook.process(input);
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }

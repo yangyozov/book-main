@@ -1,4 +1,4 @@
-package com.tinqin.library.book.core.processors.create.createbook;
+package com.tinqin.library.book.core.processors.create;
 
 import com.tinqin.library.book.api.operations.create.createbook.CreateBook;
 import com.tinqin.library.book.api.operations.create.createbook.CreateBookInput;
@@ -24,12 +24,12 @@ public class CreateBookProcessor implements CreateBook {
     @Override
     public CreateBookOutput process(CreateBookInput input) {
 
-        List<Author> authors = input.getAuthor()
+        List<UUID> authorsIdList = input.getAuthor()
                 .stream()
-                .map(authorId -> authorRepository
-                        .getReferenceById(UUID.fromString(authorId))
-                )
+                .map(authorId -> UUID.fromString(authorId))
                 .toList();
+
+        List<Author> authors = authorRepository.findAuthorsById(authorsIdList);
 
         Book book = Book
                 .builder()
