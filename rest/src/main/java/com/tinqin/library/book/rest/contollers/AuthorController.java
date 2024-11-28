@@ -1,9 +1,11 @@
 package com.tinqin.library.book.rest.contollers;
 
+import com.tinqin.library.book.api.errors.OperationError;
 import com.tinqin.library.book.api.operations.APIRotes;
 import com.tinqin.library.book.api.operations.create.createauthor.CreateAuthor;
 import com.tinqin.library.book.api.operations.create.createauthor.CreateAuthorInput;
 import com.tinqin.library.book.api.operations.create.createauthor.CreateAuthorOutput;
+import io.vavr.control.Either;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,15 +15,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RestController
-public class AuthorController {
+public class AuthorController extends BaseController {
 
     private final CreateAuthor createAuthor;
 
     @PostMapping(APIRotes.API_AUTHOR)
     public ResponseEntity<?> createAuthor(@RequestBody CreateAuthorInput input) {
 
-        CreateAuthorOutput result = createAuthor.process(input);
+        Either<OperationError, CreateAuthorOutput> result = createAuthor.process(input);
 
-        return new ResponseEntity<>(result, HttpStatus.CREATED);
+        return mapToResponseEntity(result, HttpStatus.CREATED);
     }
 }

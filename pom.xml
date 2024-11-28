@@ -16,6 +16,8 @@
     <properties>
         <java.version>21</java.version>
         <revision>0.0.1-SNAPSHOT</revision>
+        <vavr.version>0.10.4</vavr.version>
+        <jdbc.version>3.3.3</jdbc.version>
     </properties>
 
     <modules>
@@ -42,6 +44,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.vavr</groupId>
+            <artifactId>vavr</artifactId>
+            <version>${vavr.version}</version>
         </dependency>
     </dependencies>
 

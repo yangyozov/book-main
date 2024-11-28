@@ -1,5 +1,6 @@
 package com.tinqin.library.book.rest.contollers;
 
+import com.tinqin.library.book.api.errors.OperationError;
 import com.tinqin.library.book.api.operations.APIRotes;
 import com.tinqin.library.book.api.operations.create.createbook.CreateBook;
 import com.tinqin.library.book.api.operations.create.createbook.CreateBookInput;
@@ -16,6 +17,7 @@ import com.tinqin.library.book.api.operations.get.getbooks.getbook.GetBookOutput
 import com.tinqin.library.book.api.operations.put.updatebook.hidebook.HideBook;
 import com.tinqin.library.book.api.operations.put.updatebook.hidebook.HideBookInput;
 import com.tinqin.library.book.api.operations.put.updatebook.hidebook.HideBookOutput;
+import io.vavr.control.Either;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +25,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
-public class BookController {
+public class BookController extends BaseController{
 
     private final GetBook getBook;
     private final GetAllBooks getAllBooks;
@@ -39,8 +41,9 @@ public class BookController {
                 bookId(bookId).
                 build();
 
-        GetBookOutput result = getBook.process(input);
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        Either<OperationError,GetBookOutput> result = getBook.process(input);
+
+        return mapToResponseEntity(result, HttpStatus.OK);
     }
 
     @GetMapping(APIRotes.API_BOOK)
@@ -50,16 +53,17 @@ public class BookController {
                 builder().
                 build();
 
-        GetAllBooksOutput result = getAllBooks.process(input);
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        Either<OperationError,GetAllBooksOutput> result = getAllBooks.process(input);
+
+        return mapToResponseEntity(result, HttpStatus.OK);
     }
 
     @PostMapping(APIRotes.API_BOOK)
     public ResponseEntity<?> createBook(@RequestBody CreateBookInput input) {
 
-        CreateBookOutput result = createBook.process(input);
+        Either<OperationError,CreateBookOutput> result = createBook.process(input);
 
-        return new ResponseEntity<>(result, HttpStatus.CREATED);
+        return mapToResponseEntity(result, HttpStatus.CREATED);
     }
 
     @DeleteMapping(APIRotes.DELETE_BOOK)
@@ -70,9 +74,9 @@ public class BookController {
                 .bookId(bookId)
                 .build();
 
-        DeleteBookOutput result = deleteBook.process(input);
+        Either<OperationError,DeleteBookOutput> result = deleteBook.process(input);
 
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        return mapToResponseEntity(result, HttpStatus.OK);
     }
 
     @PutMapping(APIRotes.GET_BOOK)
@@ -83,8 +87,8 @@ public class BookController {
                 .bookId(bookId)
                 .build();
 
-        HideBookOutput result = hideBook.process(input);
+        Either<OperationError,HideBookOutput> result = hideBook.process(input);
 
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        return mapToResponseEntity(result, HttpStatus.OK);
     }
 }

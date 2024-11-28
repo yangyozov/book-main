@@ -1,29 +1,48 @@
 package com.tinqin.library.book.core.processors.put.updatebook;
 
+import com.tinqin.library.book.api.errors.OperationError;
 import com.tinqin.library.book.api.operations.put.updatebook.hidebook.HideBook;
 import com.tinqin.library.book.api.operations.put.updatebook.hidebook.HideBookInput;
 import com.tinqin.library.book.api.operations.put.updatebook.hidebook.HideBookOutput;
+import com.tinqin.library.book.core.errorhandler.base.ErrorHandler;
 import com.tinqin.library.book.persistence.models.Book;
 import com.tinqin.library.book.persistence.repositories.BookRepository;
+import io.vavr.control.Either;
+import io.vavr.control.Try;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
+
+import static com.tinqin.library.book.api.operations.ValidationMessages.BOOK_NOT_FOUND;
 
 @Service
 @RequiredArgsConstructor
 public class HideBookProcessor implements HideBook {
 
     private final BookRepository bookRepository;
+    private final ErrorHandler errorHandler;
 
     @Override
-    public HideBookOutput process(HideBookInput input) {
+    public Either<OperationError, HideBookOutput> process(HideBookInput input) {
+
+        return hideBook(input)
+                .toEither()
+                .mapLeft(errorHandler::handle);
+    }
+
+    private Try<HideBookOutput> hideBook(HideBookInput input) {
+
+        return Try.of(() -> findBookAndHide(input));
+    }
+
+    private HideBookOutput findBookAndHide(HideBookInput input) {
 
         UUID idBook = UUID.fromString(input.getBookId());
 
         Book book = bookRepository
                 .findById(idBook)
-                .orElseThrow(() -> new RuntimeException("Book not found"));
+                .orElseThrow(() -> new RuntimeException(BOOK_NOT_FOUND));
 
         book.setIsDeleted(true);
 
@@ -31,7 +50,7 @@ public class HideBookProcessor implements HideBook {
 
         return HideBookOutput
                 .builder()
-                .bookId(idBook)
+                .bookId(savedBook.getId())
                 .build();
     }
 }
