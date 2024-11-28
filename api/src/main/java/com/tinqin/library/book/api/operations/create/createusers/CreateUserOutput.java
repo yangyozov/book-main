@@ -1,4 +1,4 @@
-package com.tinqin.library.book.api.operations.create.createauthor;
+package com.tinqin.library.book.api.operations.create.createusers;
 
 import com.tinqin.library.book.api.base.ProcessorResult;
 import lombok.AllArgsConstructor;
@@ -13,7 +13,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 @Getter
-public class CreateAuthorOutput implements ProcessorResult {
+public class CreateUserOutput implements ProcessorResult {
 
-    private UUID authorId;
+    private UUID userId;
 }

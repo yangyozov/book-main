@@ -21,11 +21,13 @@ import java.util.UUID;
 public class Book {
 
     @Builder
-    public Book(String title, List<Author> author, String pages, BigDecimal price) {
+    public Book(String title, List<Author> author, String pages,
+                BigDecimal price, BigDecimal priceRental) {
         this.title = title;
         this.author = author;
         this.pages = pages;
         this.price = price;
+        this.priceRental = priceRental;
 
         this.stock = 0;
         this.isDeleted = false;
@@ -53,6 +55,9 @@ public class Book {
     @Column(name = "price", nullable = false)
     private BigDecimal price;
 
+    @Column(name = "price_rental", nullable = false)
+    private BigDecimal priceRental;
+
     @Column(name = "stock", nullable = false)
     private Integer stock;
 
@@ -66,5 +71,4 @@ public class Book {
 
     @Column(name = "isDeleted")
     private Boolean isDeleted;
-
 }

@@ -25,9 +25,9 @@ public class CreateAuthorProcessor implements CreateAuthor {
     public Either<OperationError, CreateAuthorOutput> process(CreateAuthorInput input) {
 
         return createAuthor(input)
-                .map(savedBook -> CreateAuthorOutput
+                .map(savedAuthor -> CreateAuthorOutput
                         .builder()
-                        .authorId(savedBook.getId())
+                        .authorId(savedAuthor.getId())
                         .build())
                 .toEither()
                 .mapLeft(errorHandler::handle);

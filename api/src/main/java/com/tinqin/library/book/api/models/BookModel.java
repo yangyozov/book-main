@@ -18,6 +18,7 @@ public class BookModel {
     private List<Author> author;
     private String pages;
     private BigDecimal price;
+    private BigDecimal priceRental;
     private Integer stock;
     private LocalDateTime createdAd;
     private LocalDateTime updatedOn;

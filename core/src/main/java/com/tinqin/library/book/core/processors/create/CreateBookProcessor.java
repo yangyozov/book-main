@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import static com.tinqin.library.book.api.operations.ValidationMessages.*;
 
@@ -61,19 +62,18 @@ public class CreateBookProcessor implements CreateBook {
 
         if (authorsInputIdList.size() != authors.size()) {
 
-            List<UUID> authorsFoundIdList = authors
+            List<UUID> authorsIdList = authors
                     .stream()
                     .map(Author::getId)
                     .toList();
 
-            List<UUID> comparedIdList = authorsInputIdList
+            String authorsNotFound = authorsInputIdList
                     .stream()
-                    .filter(id -> !authorsFoundIdList.contains(id))
-                    .toList();
+                    .filter(id -> !authorsIdList.contains(id))
+                    .map(UUID::toString)
+                    .collect(Collectors.joining(","));
 
-            String IdAuthorsString = comparedIdList.toString();
-
-            throw new BusinessException(AUTHORS_ID_NOT_FOUND + IdAuthorsString);
+            throw new BusinessException(AUTHORS_ID_NOT_FOUND + authorsNotFound);
         }
 
         Book book = Book
@@ -82,6 +82,7 @@ public class CreateBookProcessor implements CreateBook {
                 .author(authors)
                 .pages(input.getPages())
                 .price(BigDecimal.valueOf(Double.parseDouble(input.getPrice())))
+                .priceRental(BigDecimal.valueOf(Double.parseDouble(input.getPriceRental())))
                 .build();
 
         return bookRepository.save(book);

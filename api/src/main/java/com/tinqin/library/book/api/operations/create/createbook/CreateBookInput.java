@@ -30,4 +30,7 @@ public class CreateBookInput implements ProcessorInput {
     @Length(min = 5)
     private String price;
 
+    @NotBlank
+    @Length(min = 5)
+    private String priceRental;
 }
