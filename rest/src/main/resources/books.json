@@ -1,0 +1,30 @@
+[
+  {
+    "title": "Chovekut i negovite simvoli",
+    "pages": 150,
+    "price": 45.0,
+    "priceRental": 5.0,
+    "authors": [
+      "Carl Jung",
+      "Aniele Jaffe"
+    ]
+  },
+  {
+    "title": "Divi razkazi",
+    "pages": 100,
+    "price": 32.0,
+    "priceRental": 5.0,
+    "authors": [
+      "Nikolai Haitov"
+    ]
+  },
+  {
+    "title": "Ulica konservna",
+    "pages": 200,
+    "price": 40.0,
+    "priceRental": 5.0,
+    "authors": [
+      "John Steinbeck"
+    ]
+  }
+]

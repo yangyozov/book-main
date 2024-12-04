@@ -1,5 +1,6 @@
 package com.tinqin.library.book.api.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.tinqin.library.book.persistence.models.Author;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,6 +21,9 @@ public class BookModel {
     private BigDecimal price;
     private BigDecimal priceRental;
     private Integer stock;
-    private LocalDateTime createdAd;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd:mm:ss")
+    private LocalDateTime createdAt;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd:mm:ss")
     private LocalDateTime updatedOn;
+    private Boolean isDeleted;
 }

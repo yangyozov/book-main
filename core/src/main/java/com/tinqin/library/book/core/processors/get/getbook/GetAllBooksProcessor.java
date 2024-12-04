@@ -14,6 +14,9 @@ import io.vavr.control.Try;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.convert.ConversionService;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,16 +35,20 @@ public class GetAllBooksProcessor implements GetAllBooks {
     @Override
     public Either<OperationError, GetAllBooksOutput> process(GetAllBooksInput input) {
 
-        return fetchBooks()
+        return fetchBooks(input)
                 .map(this::convertGetBookInputToGetBookOutput)
                 .toEither()
                 .mapLeft(errorHandler::handle);
     }
 
 
-    private Try<List<Book>> fetchBooks() {
+    private Try<List<Book>> fetchBooks(GetAllBooksInput input) {
 
-        return Try.of(bookRepository::findAll)
+        //Pageable pageable = PageRequest.of(0, 2, Sort.by("title"));
+
+        Pageable pageable = input.getPageable();
+
+        return Try.of(() -> bookRepository.findAllBooks (pageable))
                 .map(this::checkFoundBooks);
     }
 

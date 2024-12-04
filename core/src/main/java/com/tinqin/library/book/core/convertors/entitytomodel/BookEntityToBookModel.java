@@ -18,8 +18,9 @@ public class BookEntityToBookModel implements Converter<Book, BookModel> {
                 .price(source.getPrice())
                 .priceRental(source.getPriceRental())
                 .stock(source.getStock())
-                .createdAd(source.getCreatedAd())
+                .createdAt(source.getCreatedAd())
                 .updatedOn(source.getUpdatedOn())
+                .isDeleted(source.getIsDeleted())
                 .build();
     }
 }

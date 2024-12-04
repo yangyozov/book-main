@@ -62,13 +62,13 @@ public class Book {
     private Integer stock;
 
     @CreationTimestamp
-    @Column(name = "createdAd", nullable = false)
+    @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAd;
 
     @UpdateTimestamp
-    @Column(name = "updatedOn", nullable = false)
+    @Column(name = "updated_on", nullable = false)
     private LocalDateTime updatedOn;
 
-    @Column(name = "isDeleted")
+    @Column(name = "is_deleted")
     private Boolean isDeleted;
 }

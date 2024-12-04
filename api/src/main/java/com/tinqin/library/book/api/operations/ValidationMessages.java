@@ -5,7 +5,6 @@ public class ValidationMessages {
     public static final String CLIENT_ID_CAN_NOT_BE_NULL = "Client id can not be null";
     public static final String BOOK_NOT_FOUND = "Book not found";
     public static final String EMPTY_LIBRARY = "Books not found";
-    public static final String AUTHORS_NOT_FOUND = "Authors not found";
     public static final String AUTHORS_ID_NOT_FOUND = "Authors with these IDs not found: ";
     public static final String USERS_NOT_FOUND = "User not found";
     public static final String USER_IS_ADMIN  =  "User is admin";

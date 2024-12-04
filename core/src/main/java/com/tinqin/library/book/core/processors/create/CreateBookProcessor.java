@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import static com.tinqin.library.book.api.operations.ValidationMessages.*;
+import static com.tinqin.library.book.api.operations.ValidationMessages.AUTHORS_ID_NOT_FOUND;
 
 @Service
 @RequiredArgsConstructor
@@ -55,10 +55,6 @@ public class CreateBookProcessor implements CreateBook {
                 .toList();
 
         List<Author> authors = authorRepository.findAuthorsById(authorsInputIdList);
-
-        if (authors.isEmpty()) {
-            throw new BusinessException(AUTHORS_NOT_FOUND);
-        }
 
         if (authorsInputIdList.size() != authors.size()) {
 

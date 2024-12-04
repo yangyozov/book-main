@@ -19,6 +19,8 @@ import com.tinqin.library.book.api.operations.put.updatebook.hidebook.HideBookIn
 import com.tinqin.library.book.api.operations.put.updatebook.hidebook.HideBookOutput;
 import io.vavr.control.Either;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -47,11 +49,12 @@ public class BookController extends BaseController{
     }
 
     @GetMapping(APIRotes.API_BOOK)
-    public ResponseEntity<?> getAllBooks() {
+    public ResponseEntity<?> getAllBooks(@PageableDefault(page = 0, size = 2) Pageable pageable) {
 
-        GetAllBooksInput input = GetAllBooksInput.
-                builder().
-                build();
+        GetAllBooksInput input = GetAllBooksInput
+                .builder()
+                .pageable(pageable)
+                .build();
 
         Either<OperationError,GetAllBooksOutput> result = getAllBooks.process(input);
 
