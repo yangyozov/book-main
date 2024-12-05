@@ -9,4 +9,5 @@ public class ValidationMessages {
     public static final String USERS_NOT_FOUND = "User not found";
     public static final String USER_IS_ADMIN  =  "User is admin";
     public static final String USER_IS_BLOCKED =  "User is already blocked";
+    public static final String USER_NOT_BLOCKED=  "User is not blocked";
 }

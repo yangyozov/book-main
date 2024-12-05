@@ -5,17 +5,17 @@ import com.tinqin.library.book.api.operations.APIRotes;
 import com.tinqin.library.book.api.operations.create.createusers.CreateUser;
 import com.tinqin.library.book.api.operations.create.createusers.CreateUserInput;
 import com.tinqin.library.book.api.operations.create.createusers.CreateUserOutput;
-import com.tinqin.library.book.api.operations.put.updateuser.BlockUser;
-import com.tinqin.library.book.api.operations.put.updateuser.BlockUserInput;
-import com.tinqin.library.book.api.operations.put.updateuser.BlockUserOutput;
+import com.tinqin.library.book.api.operations.put.updateuser.blockuser.BlockUser;
+import com.tinqin.library.book.api.operations.put.updateuser.blockuser.BlockUserInput;
+import com.tinqin.library.book.api.operations.put.updateuser.blockuser.BlockUserOutput;
+import com.tinqin.library.book.api.operations.put.updateuser.unblockuser.UnBlockUser;
+import com.tinqin.library.book.api.operations.put.updateuser.unblockuser.UnBlockUserInput;
+import com.tinqin.library.book.api.operations.put.updateuser.unblockuser.UnBlockUserOutput;
 import io.vavr.control.Either;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
@@ -23,6 +23,7 @@ public class UserController extends BaseController {
 
     private final CreateUser createUser;
     private final BlockUser blockUser;
+    private final UnBlockUser unblockUser;
 
     @PostMapping(APIRotes.API_USER)
     public ResponseEntity<?> createUser(@RequestBody CreateUserInput input) {
@@ -32,7 +33,7 @@ public class UserController extends BaseController {
         return mapToResponseEntity(result, HttpStatus.CREATED);
     }
 
-    @PostMapping(APIRotes.BLOCK_USER)
+    @PutMapping(APIRotes.BLOCK_USER)
     public ResponseEntity<?> blockUser(@PathVariable("userId") String userId) {
 
         BlockUserInput input = BlockUserInput
@@ -41,6 +42,19 @@ public class UserController extends BaseController {
                 .build();
 
         Either<OperationError, BlockUserOutput> result = blockUser.process(input);
+
+        return mapToResponseEntity(result, HttpStatus.OK);
+    }
+
+    @PutMapping(APIRotes.UNBLOCK_USER)
+    public ResponseEntity<?> unBlockUser(@PathVariable("userId") String userId) {
+
+        UnBlockUserInput input = UnBlockUserInput
+                .builder()
+                .userId(userId)
+                .build();
+
+        Either<OperationError, UnBlockUserOutput> result = unblockUser.process(input);
 
         return mapToResponseEntity(result, HttpStatus.OK);
     }

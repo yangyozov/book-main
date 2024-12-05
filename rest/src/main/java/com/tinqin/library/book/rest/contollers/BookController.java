@@ -17,6 +17,7 @@ import com.tinqin.library.book.api.operations.get.getbooks.getbook.GetBookOutput
 import com.tinqin.library.book.api.operations.put.updatebook.hidebook.HideBook;
 import com.tinqin.library.book.api.operations.put.updatebook.hidebook.HideBookInput;
 import com.tinqin.library.book.api.operations.put.updatebook.hidebook.HideBookOutput;
+import com.tinqin.library.book.rest.models.LocaleHeader;
 import io.vavr.control.Either;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -34,6 +35,7 @@ public class BookController extends BaseController{
     private final CreateBook createBook;
     private final DeleteBook deleteBook;
     private final HideBook hideBook;
+    //private final LocaleHeader localeHeader;
 
     @GetMapping(APIRotes.GET_BOOK)
     public ResponseEntity<?> getBook(@PathVariable("bookId") String bookId) {
