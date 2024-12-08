@@ -17,6 +17,9 @@ import com.tinqin.library.book.api.operations.get.getbook.GetBookOutput;
 import com.tinqin.library.book.api.operations.update.hidebook.HideBook;
 import com.tinqin.library.book.api.operations.update.hidebook.HideBookInput;
 import com.tinqin.library.book.api.operations.update.hidebook.HideBookOutput;
+import com.tinqin.library.book.api.operations.update.purchasebook.PurchaseBook;
+import com.tinqin.library.book.api.operations.update.purchasebook.PurchaseBookInput;
+import com.tinqin.library.book.api.operations.update.purchasebook.PurchaseBookOutput;
 import io.vavr.control.Either;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -34,6 +37,7 @@ public class BookController extends BaseController{
     private final CreateBook createBook;
     private final DeleteBook deleteBook;
     private final HideBook hideBook;
+    private final PurchaseBook purchaseBook;
     //private final LocaleHeader localeHeader;
 
     @GetMapping(APIRotes.GET_BOOK)
@@ -92,6 +96,14 @@ public class BookController extends BaseController{
                 .build();
 
         Either<OperationError,HideBookOutput> result = hideBook.process(input);
+
+        return mapToResponseEntity(result, HttpStatus.OK);
+    }
+
+    @PutMapping(APIRotes.API_PURCHASE)
+    public ResponseEntity<?> purchaseBook(@RequestBody PurchaseBookInput input) {
+
+        Either<OperationError, PurchaseBookOutput> result = purchaseBook.process(input);
 
         return mapToResponseEntity(result, HttpStatus.OK);
     }

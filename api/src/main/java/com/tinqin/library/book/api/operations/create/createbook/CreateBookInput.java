@@ -15,26 +15,26 @@ import java.util.List;
 public class CreateBookInput implements ProcessorInput {
 
     @NotBlank
-    @Length(min = 100)
+    @Length(max = 100)
     private String title;
 
     @NotBlank
-    @Length(min = 100)
+    @Length(max = 100)
     private List<String> author;
 
     @NotBlank
-    @Length(min = 5)
+    @Length(max = 5)
     private String pages;
 
     @NotBlank
-    @Length(min = 5)
+    @Length(max = 5)
     private String price;
 
     @NotBlank
-    @Length(min = 5)
+    @Length(max = 5)
     private String priceRental;
 
     @NotBlank
-    @Length(min = 5)
+    @Length(max = 5)
     private String stock;
 }

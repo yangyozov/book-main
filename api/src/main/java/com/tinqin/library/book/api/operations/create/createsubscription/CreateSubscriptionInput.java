@@ -16,7 +16,7 @@ import java.util.UUID;
 public class CreateSubscriptionInput implements ProcessorInput {
 
     @NotBlank
-    @Length(min = 100)
+    @Length(max = 100)
     private UUID userId;
 
     @NotBlank

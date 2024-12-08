@@ -29,7 +29,7 @@ public class RentedBook {
     @Column(name = "end_date", nullable = false)
     private LocalDateTime endDate;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "subscription_id")
-    private Author author;
+    private Subscription subscription;
 }

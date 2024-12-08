@@ -1,5 +1,6 @@
 package com.tinqin.library.book.persistence.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -38,6 +39,9 @@ public class Subscription {
     @Column(name = "can_rent", nullable = false)
     private Boolean canRent;
 
-    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "subscription", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<RentedBook> rentedBooks;
+
+    @OneToOne(mappedBy = "subscription", fetch = FetchType.EAGER)
+    private User user;
 }

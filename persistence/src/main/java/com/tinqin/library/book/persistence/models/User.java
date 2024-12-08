@@ -1,5 +1,6 @@
 package com.tinqin.library.book.persistence.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -40,6 +41,6 @@ public class User {
     @Column(name = "is_blocked")
     private Boolean isBlocked;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Subscription subscription;
 }
