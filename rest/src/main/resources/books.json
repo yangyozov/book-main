@@ -4,6 +4,7 @@
     "pages": 150,
     "price": 45.0,
     "priceRental": 5.0,
+    "stock": 10,
     "authors": [
       "Carl Jung",
       "Aniele Jaffe"
@@ -14,6 +15,7 @@
     "pages": 100,
     "price": 32.0,
     "priceRental": 5.0,
+    "stock": 20,
     "authors": [
       "Nikolai Haitov"
     ]
@@ -23,6 +25,7 @@
     "pages": 200,
     "price": 40.0,
     "priceRental": 5.0,
+    "stock": 44,
     "authors": [
       "John Steinbeck"
     ]

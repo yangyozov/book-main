@@ -39,4 +39,7 @@ public class User {
 
     @Column(name = "is_blocked")
     private Boolean isBlocked;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private Subscription subscription;
 }

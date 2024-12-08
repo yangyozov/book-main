@@ -39,7 +39,7 @@ public class BookSeederByFile implements ApplicationRunner {
                     ?,
                     ?,
                     ?,
-                    0,
+                    ?,
                     ?,
                     now())
             """;
@@ -72,7 +72,8 @@ public class BookSeederByFile implements ApplicationRunner {
                 ps.setInt(1, book.getPages());
                 ps.setBigDecimal(2, book.getPrice());
                 ps.setBigDecimal(3, book.getPriceRental());
-                ps.setString(4, book.getTitle());
+                ps.setInt(4, book.getStock());
+                ps.setString(5, book.getTitle());
 
                 ps.addBatch();
                 ps.clearParameters();

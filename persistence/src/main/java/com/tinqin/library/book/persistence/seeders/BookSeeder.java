@@ -39,6 +39,7 @@ public class BookSeeder implements ApplicationRunner {
         private final Integer pages;
         private final BigDecimal price;
         private final BigDecimal priceRental;
+        private final Integer stock;
         private final List<String> authors;
     }
 
@@ -50,6 +51,7 @@ public class BookSeeder implements ApplicationRunner {
                     .pages(200)
                     .price(BigDecimal.valueOf(45.0))
                     .priceRental(BigDecimal.valueOf(5.0))
+                    .stock(5)
                     .authors(List.of
                             (
                                     "Carl Jung",
@@ -67,7 +69,7 @@ public class BookSeeder implements ApplicationRunner {
                     ?,
                     ?,
                     ?,
-                    0,
+                    ?,
                     ?,
                     now())
             """;
@@ -90,7 +92,8 @@ public class BookSeeder implements ApplicationRunner {
             ps.setInt(1, book.getPages());
             ps.setBigDecimal(2, book.getPrice());
             ps.setBigDecimal(3, book.getPriceRental());
-            ps.setString(4, book.getTitle());
+            ps.setInt(4, book.getStock());
+            ps.setString(5, book.getTitle());
 
             ps.addBatch();
             ps.clearParameters();

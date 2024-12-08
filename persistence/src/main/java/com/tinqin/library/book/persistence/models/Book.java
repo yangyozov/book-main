@@ -22,14 +22,14 @@ public class Book {
 
     @Builder
     public Book(String title, List<Author> author, String pages,
-                BigDecimal price, BigDecimal priceRental) {
+                BigDecimal price, BigDecimal priceRental, Integer stock) {
         this.title = title;
         this.author = author;
         this.pages = pages;
         this.price = price;
         this.priceRental = priceRental;
+        this.stock = stock;
 
-        this.stock = 0;
         this.isDeleted = false;
     }
 

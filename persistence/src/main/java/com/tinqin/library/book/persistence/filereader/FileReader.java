@@ -65,7 +65,7 @@ public class FileReader {
 
         String[] parts = line.split(",\\s*");
 
-        if (parts.length != 5) {
+        if (parts.length != 6) {
 
             //throw new IllegalArgumentException("Invalid line format: " + line);
             log.warn("Invalid line format: {}", line);
@@ -78,7 +78,8 @@ public class FileReader {
                 .pages(Integer.parseInt(parts[1]))
                 .price(BigDecimal.valueOf(Double.parseDouble(parts[2])))
                 .priceRental(BigDecimal.valueOf(Double.parseDouble(parts[3])))
-                .authors(getAuthors(parts[4]))
+                .stock(Integer.parseInt(parts[4]))
+                .authors(getAuthors(parts[5]))
                 .build()
         );
     }

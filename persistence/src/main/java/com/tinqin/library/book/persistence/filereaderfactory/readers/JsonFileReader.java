@@ -76,6 +76,7 @@ public class JsonFileReader implements FileReader {
                     case "pages" -> builder.pages(jsonParser.getIntValue());
                     case "price" -> builder.price(BigDecimal.valueOf(jsonParser.getDoubleValue()));
                     case "priceRental" -> builder.priceRental(BigDecimal.valueOf(jsonParser.getDoubleValue()));
+                    case "stock" -> builder.stock(jsonParser.getIntValue());
                     case "authors" -> builder.authors(getAuthors());
                     default -> jsonParser.skipChildren();
                 }

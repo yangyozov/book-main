@@ -16,5 +16,6 @@ public class BookModel {
     private final Integer pages;
     private final BigDecimal price;
     private final BigDecimal priceRental;
+    private final Integer stock;
     private final List<String> authors;
 }

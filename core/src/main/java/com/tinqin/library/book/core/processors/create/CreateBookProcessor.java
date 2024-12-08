@@ -79,6 +79,7 @@ public class CreateBookProcessor implements CreateBook {
                 .pages(input.getPages())
                 .price(BigDecimal.valueOf(Double.parseDouble(input.getPrice())))
                 .priceRental(BigDecimal.valueOf(Double.parseDouble(input.getPriceRental())))
+                .stock(Integer.parseInt(input.getStock()))
                 .build();
 
         return bookRepository.save(book);
